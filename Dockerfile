@@ -16,7 +16,7 @@ ENV SQL_HOST=""
 ENV SQL_USER=""
 ENV SQL_PASS=""
 ENV SQL_DATABASE=""
-ENV PUBSUB_TOPIC_NAME=""
+ENV PUBSUB_TOPIC_NAME="paas-post-printing"
 ENV PUBSUB_SUBSCRIPTION_NAME="printer-1-subscription"
 
 RUN yarn install
