@@ -1,4 +1,5 @@
 import {Request, Response} from 'express';
+import axios from 'axios';
 import {ackMessage, publishMessage, synchronousPull} from './pubsub';
 import {IQueueMessage} from './types';
 
@@ -21,6 +22,15 @@ export const getPrintQueue = async (res: Response) => {
         } else {
           messageData = message.message;
         }
+
+        const data = {
+          status: 2,
+        };
+
+        await axios.patch(
+          `http://35.187.254.152:8000/api/tasks/${messageData.print_id}/`,
+          data
+        );
         // console.log('messageData', messageData);
         // console.log('messageData.file_name', messageData.file_name);
         returnMessages.push(messageData);
@@ -41,17 +51,19 @@ export const getPrintQueue = async (res: Response) => {
 
 export const postPrint = async (req: Request, res: Response) => {
   try {
-    if (!req?.body?.print_id || !req?.body?.status) {
-      res.status(400).send();
+    if (!req?.body?.print_id) {
+      res.status(400).send('Incorrect body');
       return;
     }
+
     const body = {
       print_id: req.body?.print_id,
-      status: req.body?.status,
+      status: 'success',
     };
-    publishMessage(process.env.PUBSUB_TOPIC_NAME, JSON.stringify(body));
 
-    res.send({message: 'YES'});
+    await publishMessage(process.env.PUBSUB_TOPIC_NAME, JSON.stringify(body));
+
+    res.status(200).send();
   } catch (error) {
     console.error(error);
     res.status(500).send(error);
