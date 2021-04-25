@@ -20,19 +20,16 @@
   "license": "ISC",
   "dependencies": {
     "@google-cloud/pubsub": "^2.8.0",
-    "@google-cloud/storage": "^5.7.4",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "googleapis": "^67.0.0",
-    "mysql": "^2.18.1"
+    "googleapis": "^67.0.0"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/cors": "^2.8.10",
     "@types/express": "^4.17.11",
-    "@types/mysql": "^2.15.17",
     "@types/node": "^14.14.31",
     "gts": "^3.1.0",
     "tslint": "^6.1.3",
